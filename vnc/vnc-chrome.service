@@ -1,0 +1,30 @@
+[Unit]
+Description=VNC Chrome Stack
+After=network.target docker.service
+Requires=docker.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+# 内存限制 - 防止 Chrome 无限制消耗内存
+MemoryMax=2G
+MemoryHigh=1800M
+# OOM 优先级调整（正值更容易被杀死）
+OOMScoreAdjust=100
+Environment="HOME=/root"
+Environment="USER=root"
+Environment="XDG_RUNTIME_DIR=/run/user/0"
+Environment="DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/0/bus"
+Environment="DISPLAY=:110"
+Environment="LANG=zh_CN.UTF-8"
+Environment="LANGUAGE=zh_CN:zh:en_US"
+Environment="LC_ALL=zh_CN.UTF-8"
+Environment="GTK_IM_MODULE=fcitx5"
+Environment="QT_IM_MODULE=fcitx5"
+Environment="XMODIFIERS=@im=fcitx5"
+ExecStartPre=/bin/sleep 30
+ExecStart=/bin/bash /etc/rc.chrome-vnc.sh
+ExecStop=/bin/bash -c "pkill -9 Xvnc 2>/dev/null || true; pkill -9 Xvfb 2>/dev/null || true; pkill -9 x11vnc 2>/dev/null || true; pkill -9 websockify 2>/dev/null || true; pkill -9 chrome 2>/dev/null || true; pkill -9 socat 2>/dev/null || true; pkill -9 xfwm4 2>/dev/null || true; pkill -9 xfdesktop 2>/dev/null || true; pkill -9 xfce4-panel 2>/dev/null || true; pkill -9 thunar 2>/dev/null || true; pkill -9 fcitx5 2>/dev/null || true; sleep 2"
+
+[Install]
+WantedBy=multi-user.target

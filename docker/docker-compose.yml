@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  smart-browser:
+    build: .
+    container_name: smart-browser
+    restart: always
+    network_mode: host
+    privileged: true
+    volumes:
+      - ./chrome-data:/var/chrome-data
+      - ./vnc-data:/root/.vnc
+    environment:
+      - VNC_PASSWORD=admin2026
+      - DISPLAY=:1
+      - RESOLUTION=1920x1080
+    shm_size: 2gb
+    cap_add:
+      - SYS_ADMIN
+    devices:
+      - /dev/fuse
+    security_opt:
+      - seccomp:unconfined
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:6080/vnc.html"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
