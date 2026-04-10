@@ -192,13 +192,96 @@ sudo ./scripts/install.sh
 
 ### Q4: 忘记密码了怎么办？
 
+**查看默认密码**
+
 默认密码是 `admin2026`
 
-如需修改，编辑 `vnc/auth-server.js`，找到：
+---
+
+### 🔐 如何修改 VNC 密码
+
+#### 方法一：修改配置文件（推荐）
+
+**步骤 1**：编辑密码配置文件
+
+```bash
+nano vnc/auth-server.js
+```
+
+**步骤 2**：找到密码配置行
+
+找到这一行（大约在第 34 行）：
 ```javascript
 const VALID_PASSWORD_HASH = computePasswordHash('admin2026');
 ```
-改为你的新密码，然后重启服务。
+
+**步骤 3**：修改密码
+
+将 `admin2026` 改为你想要的新密码，例如：
+```javascript
+const VALID_PASSWORD_HASH = computePasswordHash('MyNewPassword888');
+```
+
+**步骤 4**：保存并退出
+
+- 按 `Ctrl+O` 保存
+- 按 `Enter` 确认
+- 按 `Ctrl+X` 退出
+
+**步骤 5**：重启服务
+
+```bash
+./scripts/stop-vnc.sh
+./scripts/start-vnc.sh
+```
+
+**步骤 6**：验证新密码
+
+浏览器打开 `http://localhost:6080/vnc.html`，使用新密码登录。
+
+---
+
+#### 方法二：Docker 环境修改密码
+
+如果你使用 Docker 部署：
+
+**步骤 1**：编辑 docker-compose.yml
+
+```bash
+nano docker/docker-compose.yml
+```
+
+**步骤 2**：修改环境变量
+
+找到这一行：
+```yaml
+- VNC_PASSWORD=admin2026
+```
+
+改为：
+```yaml
+- VNC_PASSWORD=你的新密码
+```
+
+**步骤 3**：保存并重启
+
+```bash
+docker-compose down
+docker-compose up -d
+```
+
+---
+
+#### 方法三：使用修改密码脚本
+
+```bash
+# 运行修改密码脚本
+./scripts/change-password.sh
+
+# 按提示输入新密码
+```
+
+> 提示：脚本正在开发中，暂时请使用方法一或方法二。
 
 ### Q5: 安装很慢，一直卡住
 
