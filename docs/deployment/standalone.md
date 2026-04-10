@@ -13,7 +13,7 @@
 
 ```bash
 # 1. 克隆仓库
-git clone https://github.com/z-qinghui/openclaw-anti-bot.git ~/.claude/skills/smart-browser
+git clone https://github.com/z-qinghui/smart-browser.git ~/.claude/skills/smart-browser
 cd ~/.claude/skills/smart-browser
 
 # 2. 下载 vendor 依赖（推荐，提升安装速度）

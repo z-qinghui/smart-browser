@@ -4,7 +4,7 @@ description: Use when accessing WeChat MP, Xiaohongshu, Zhihu via CDP Proxy; whe
 version: 1.0.0
 author: z-qinghui
 tags: [browser, vnc, cdp, anti-bot, wechat, xiaohongshu, zhihu]
-github: https://github.com/z-qinghui/openclaw-anti-bot
+github: https://github.com/z-qinghui/smart-browser
 ---
 
 # smart-browser — 智能浏览器自动化套件
@@ -50,7 +50,7 @@ curl -s http://127.0.0.1:9222/json/version
 
 ```bash
 # 克隆仓库
-git clone https://github.com/z-qinghui/openclaw-anti-bot.git ~/.claude/skills/smart-browser
+git clone https://github.com/z-qinghui/smart-browser.git ~/.claude/skills/smart-browser
 cd ~/.claude/skills/smart-browser
 
 # 运行安装脚本
